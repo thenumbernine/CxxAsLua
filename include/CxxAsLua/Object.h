@@ -10,13 +10,7 @@
 #include <iostream>
 #include <cmath>
 
-/*
-TODO:
--- implicit function capturing, and automatic conversion to a Var->Var function
--- fix __gc crashing
-*/
-
-namespace lua {
+namespace CxxAsLua {
 
 //detect whether a class has operator()
 //http://stackoverflow.com/a/18603716
@@ -1244,5 +1238,5 @@ struct IO : public Object {
 extern IO io;
 
 
-} //namespace lua
+} //namespace CxxAsLua
 

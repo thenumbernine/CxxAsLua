@@ -1,9 +1,9 @@
-#include "object.h"
+#include "CxxAsLua/Object.h"
 #include <limits>
 #include <cmath>
 #include <cstdlib>
 
-namespace lua {
+namespace CxxAsLua {
 
 //from http://www.linuxquestions.org/questions/programming-9/wstring-utf8-conversion-in-pure-c-701084/
 std::string u32strToUtf8(const std::u32string& src){
@@ -652,7 +652,7 @@ Math::Math() : Object({
 	{"ceil", ::ceil},
 	{"cos", ::cos},
 	{"cosh", ::cosh},
-	{"deg", function(x) { return x*180/::lua::pi; }},
+	{"deg", function(x) { return x*180/::CxxAsLua::pi; }},
 	{"exp", ::exp},
 	{"floor", ::floor},
 	{"fmod", Object::lmod},
@@ -673,9 +673,9 @@ Math::Math() : Object({
 		double fracpart = ::modf(x, &intpart);
 		return VarArg(intpart, fracpart);
 	}},
-	{"pi", ::lua::pi},
+	{"pi", ::CxxAsLua::pi},
 	{"pow", ::pow},
-	{"rad", function(x) { return x*::lua::pi/180; }},
+	{"rad", function(x) { return x*::CxxAsLua::pi/180; }},
 	{"random", [=](VarArg args)->VarArg {
 		if (args.len() == 0) {
 			return (double)::rand()/(double)RAND_MAX;

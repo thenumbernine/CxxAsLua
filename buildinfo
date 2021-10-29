@@ -1,0 +1,3 @@
+distName='CxxAsLua'
+distType='lib'
+depends:append{'../Common'}

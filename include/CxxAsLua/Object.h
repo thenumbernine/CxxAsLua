@@ -26,7 +26,7 @@ struct Object_Details;
 extern const Object nil;
 
 struct MapCompare {
-	bool operator()(const Object&, const Object&);
+	bool operator()(const Object&, const Object&) const;
 };
 
 //collection of Object's is used for argument lists passing to and from functions
@@ -877,7 +877,7 @@ template<typename T, typename ReturnType, typename... Args>
 struct AssignCallable {
 	static void exec(Object& o, const T& t) {
 		o.details = std::make_shared<Object_Details_Function>(
-			[=](VarArg args)->VarArg{
+			[t](VarArg args)->VarArg{
 				DelayDispatch<T, ReturnType, Args...> save(t, args.toTuple<Args...>());
 				return VarArgForReturnOfDelayedDispatch<T, ReturnType>::template exec<Args...>(save);
 			}
@@ -900,7 +900,7 @@ Object& Object::operator=(ReturnType (*func)(Args...)) {
 
 template<typename ReturnType, typename... Args>
 Object::operator std::function<ReturnType(Args...)>() {
-	return [=](Args... args)->ReturnType{
+	return [this](Args... args)->ReturnType{
 		VarArg results = this->template operator()<Args...>(args...);
 		return (ReturnType)results[1];
 	};
@@ -908,7 +908,7 @@ Object::operator std::function<ReturnType(Args...)>() {
 
 template<typename... Args>
 Object::operator std::function<void(Args...)>() {
-	return [=](Args... args)->void{
+	return [this](Args... args)->void{
 		this->template operator()<Args...>(args...);
 	};
 }
@@ -1239,4 +1239,3 @@ extern IO io;
 
 
 } //namespace CxxAsLua
-

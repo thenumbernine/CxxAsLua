@@ -47,12 +47,12 @@ struct foo {
 
 };
 
-void bar_vv() {}
-void bar_vi(int) {}
-int bar_iv() { return 0; }
-int bar_ii(int) { return 0; }
+static void bar_vv() {}
+static void bar_vi(int) {}
+static int bar_iv() { return 0; }
+static int bar_ii(int) { return 0; }
 
-int main() {
+void callable_main() {
 	{ foo f(false); }
 	{ foo f('\0'); }
 	{ foo f((short)0); }
@@ -74,4 +74,3 @@ int main() {
 	{ struct { void operator()(){} } b; foo f(b); }
 	{ struct {} b; foo f(b); }
 }
-

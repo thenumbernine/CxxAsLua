@@ -973,6 +973,14 @@ struct Access {
 		VarArg vargs = tupleToVarArg<Args...>(t);
 		return get().call(vargs);
 	}
+
+	Access operator[](Object key) {
+		return Object(*this)[key];
+	}
+
+	Access operator[](const char* key) {
+		return Object(*this)[key];
+	}
 };
 
 
